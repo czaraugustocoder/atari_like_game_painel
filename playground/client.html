@@ -5,11 +5,48 @@
 
         <style>
             #tela {
-                border: 1px solid #CCC;
+                border: 5px solid #CCC;
+                image-rendering: pixelated;
+                image-rendering: crisp-edges;
+                image-rendering: -moz-crisp-edges;
+                width: 400px;
+                height: 400px;
             }
         </style>
     </head>
     <body>
-        <canvas id="tela" width="500" height="500"></canvas>
+        <canvas id="tela" width="10" height="10"></canvas>
+
+        <script>
+            const tela = document.getElementById("tela");
+            const context = tela.getContext("2d");
+
+            const game = {
+                jogadores: {
+                    'jogador1': { x: 1, y: 1 },
+                    'jogador2': { x: 8, y: 7 }
+                },
+                frutas: {
+                'fruta': { x: 5, y: 5 }
+                }
+            }
+
+            renderTela(game)
+
+            function renderTela(game) {
+
+                for (jogadorId in game.jogadores) {
+                    const jogador = game.jogadores[jogadorId];
+                    context.fillStyle = "blue";
+                    context.fillRect(jogador.x, jogador.y, 1, 1);
+                }
+
+                for (frutaId in game.frutas) {
+                    const fruta = game.frutas[frutaId];
+                    context.fillStyle = "green";
+                    context.fillRect(fruta.x, fruta.y, 1, 1);
+                }
+        }
+        </script>
     </body>
 </html>
