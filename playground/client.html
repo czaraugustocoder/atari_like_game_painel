@@ -35,6 +35,40 @@
 
             function renderTela(game) {
 
+                const lab = [
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,1,0,0],
+                [0,0,0,0,0,0,0,1,0,0],
+                [0,0,0,0,0,0,0,1,0,0],
+                [0,0,0,0,0,0,0,1,0,0],
+                [0,0,0,0,0,0,0,1,0,0],
+                [0,0,0,0,0,0,0,1,0,0],
+                [0,0,0,0,0,0,0,1,0,0],
+                [0,0,0,0,0,0,0,1,0,0],
+                [0,0,0,0,0,0,0,0,0,0]
+                ]
+
+                let cont_linha = 0;
+                let cont_ponto = 0;
+
+                for (linha in lab) {
+                    cont_linha += 1
+                    console.log(cont_linha)
+                    console.log(lab[linha])
+                    pontos = lab[linha]
+                    for (ponto in pontos) {
+                        cont_ponto += 1
+                        if (ponto == 1) {
+                            console.log(cont_ponto)
+                            context.fillStyle = "black";
+                            context.fillRect(cont_ponto, cont_linha, 1, 1);
+                        }
+
+                    cont_ponto = 0
+
+                    }
+                }
+
                 for (jogadorId in game.jogadores) {
                     const jogador = game.jogadores[jogadorId];
                     context.fillStyle = "blue";
