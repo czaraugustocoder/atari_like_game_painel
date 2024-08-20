@@ -23,11 +23,13 @@
 
             const game = {
                 jogadores: {
-                    'jogador1': { x: 1, y: 1 },
-                    'jogador2': { x: 8, y: 7 }
+                    'jogador1': { x: 0, y: 0 },
+                    'jogador2': { x: 0, y: 9 },
+                    'jogador3': { x: 9, y: 0 },
+                    'jogador4': { x: 9, y: 9 }
                 },
                 frutas: {
-                'fruta': { x: 5, y: 5 }
+                'fruta': { x: 5, y: 4 }
                 }
             }
 
@@ -36,17 +38,19 @@
             function renderTela(game) {
 
                 const lab = [
-                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,1,0,0,0,0],
                 [0,0,0,1,0,0,0,1,1,0],
                 [0,0,0,1,0,0,0,1,0,0],
                 [0,1,1,1,0,0,0,1,0,0],
                 [0,0,0,1,0,0,0,1,0,0],
                 [0,0,0,1,0,0,0,1,0,0],
-                [0,0,0,1,0,0,0,1,0,0],
-                [0,0,0,1,1,1,1,1,0,0],
+                [1,1,0,1,0,0,0,1,0,0],
+                [0,0,0,1,1,1,1,1,0,1],
                 [0,0,0,0,0,0,0,1,0,0],
-                [0,0,0,0,0,0,0,0,0,0]
+                [0,0,0,1,0,0,0,0,0,0]
                 ]
+
+                const coords = []
 
                 let cont_linha = 0;
                 let cont_ponto = 0;
@@ -60,12 +64,16 @@
                         if (lab[linha][ponto] == 1) {
                             console.log(cont_ponto)
                             context.fillStyle = "black";
+                            const coord = `${cont_ponto},${cont_linha}`;
+                            coords.push(coord);
                             context.fillRect(cont_ponto, cont_linha, 1, 1);
                         }
                         cont_ponto += 1
                     }
                     cont_linha += 1
                 }
+
+                console.log(coords)
 
                 for (jogadorId in game.jogadores) {
                     const jogador = game.jogadores[jogadorId];
