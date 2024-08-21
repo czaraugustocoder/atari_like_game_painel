@@ -41,43 +41,65 @@
 
                 if (keyPressed === "ArrowUp" && gamer.y > 0) {
                     console.log("up")
-                    gamer.y = gamer.y - 1
-                    console.log(gamer.y)
+                    let y = gamer.y - 1
+                    let coord_game = `${gamer.x},${y}`;
+                    console.log(coord_game)
+                    if (coords.includes(coord_game) === false) {
+                        console.log(coords.includes(coord_game));
+                        gamer.y = gamer.y - 1
+                    }
+
                     renderTela(game)
-                    console.log(coords_y.includes(4));
+
                 }
 
                 if (keyPressed === "ArrowRight" && gamer.x < 9) {
                     console.log("right")
-                    gamer.x = gamer.x + 1
-                    console.log(gamer.x)
+                    let x = gamer.x + 1
+                    let coord_game = `${x},${gamer.y}`;
+                    console.log(coord_game)
+                    if (coords.includes(coord_game) === false) {
+                        console.log(coords.includes(coord_game));
+                        gamer.x = gamer.x + 1
+                    }
+
                     renderTela(game)
                 }
 
                 if (keyPressed === "ArrowLeft" && gamer.x > 0) {
                     console.log("left")
-                    gamer.x = gamer.x - 1
-                    console.log(gamer.x)
+                    let x = gamer.x - 1
+                    let coord_game = `${x},${gamer.y}`;
+                    console.log(coord_game)
+                    if (coords.includes(coord_game) === false) {
+                        console.log(coords.includes(coord_game));
+                        gamer.x = gamer.x - 1
+                    }
+
                     renderTela(game)
                 }
 
                 if (keyPressed === "ArrowDown" && gamer.y < 9) {
                     console.log("down")
-                    gamer.y = gamer.y + 1
-                    console.log(gamer.y)
+                    let y = gamer.y + 1
+                    let coord_game = `${gamer.x},${y}`;
+                    console.log(coord_game)
+                    if (coords.includes(coord_game) === false) {
+                        console.log(coords.includes(coord_game));
+                        gamer.y = gamer.y + 1
+                    }
+
                     renderTela(game)
                 }
 
             }
 
-            let coords_x = []
-            let coords_y = []
+            let coords = []
 
             renderTela(game)
 
             function renderTela(game) {
-                coords_x = []
-                coords_y = []
+                coords = []
                 context.fillStyle = "white"
                 context.clearRect(0, 0, 10, 10)
 
@@ -86,10 +108,10 @@
                 [0,0,0,1,0,0,0,1,1,0],
                 [0,0,0,1,0,0,0,1,0,0],
                 [0,1,1,1,0,0,0,1,0,0],
-                [0,0,0,1,0,0,0,1,0,0],
+                [0,0,0,1,0,0,0,0,0,0],
                 [0,0,0,1,0,0,0,1,0,0],
                 [1,1,0,1,0,0,0,1,0,0],
-                [0,0,0,1,1,1,1,1,0,1],
+                [0,0,0,1,0,1,1,1,0,1],
                 [0,0,0,0,0,0,0,1,0,0],
                 [0,0,0,1,0,0,0,0,0,0]
                 ]
@@ -103,8 +125,8 @@
                     for (ponto in pontos) {
                         if (lab[linha][ponto] == 1) {
                             context.fillStyle = "black";
-                            coords_x.push(cont_ponto);
-                            coords_y.push(cont_linha);
+                            const coord = `${cont_ponto},${cont_linha}`;
+                            coords.push(coord);
                             context.fillRect(cont_ponto, cont_linha, 1, 1);
                         }
                         cont_ponto += 1
@@ -112,8 +134,7 @@
                     cont_linha += 1
                 }
 
-                console.log(coords_x)
-                console.log(coords_y)
+                console.log(coords)
 
                 for (jogadorId in game.jogadores) {
                     const jogador = game.jogadores[jogadorId];
