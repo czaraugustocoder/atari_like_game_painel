@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Três Quadrados Centralizados</title>
+    <style>
+
+        .titulo {
+            text-align: center;
+            color: #ffffff;
+        }
+
+        body {
+            background-color: #000000; /* Cor de fundo para a página */
+        }
+
+        .container {
+            margin-top: 15%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px; /* Espaço entre os quadrados */
+        }
+
+        .quadrado {
+            width: 150px;
+            height: 150px;
+            background-color: #ffffff; /* Cor dos quadrados */
+        }
+
+        p {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="titulo" >Games Blackboard</h1>
+    <div class="container">
+        <h1>Usuarios</h1>
+        {% for user in users %}
+            <p><strong>Name:</strong> {{ user.name }}</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
