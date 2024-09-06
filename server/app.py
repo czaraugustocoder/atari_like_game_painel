@@ -32,7 +32,8 @@ def index(user):
     if (user in session["user"]):
         return render_template("index.html", user = session["user"])
     
-    return redirect(url_for('login'))
+    if (user not in session["user"]):
+        return redirect(url_for('login'))
 
 # login
 
@@ -54,6 +55,7 @@ def login():
                 if ((users[count]['name'] == name_auth) and (users[count]['pwd'] == pwd)):
                     print("autenticado", name_auth, pwd, users[count]['name'], users[count]['pwd'])
                     session["user"] = name_auth
+                    print(session)
                     print(session["user"])
                     return redirect(url_for('index', user = session["user"]))
                 else:
