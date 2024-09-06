@@ -25,13 +25,16 @@ name_auth_false = False
 
 # painel do usuário
 
-@app.route("/painel")
-def index():
+@app.route("/painel/<user>")
+def index(user):
 
     if (authentication == False):
         return redirect(url_for('login'))
-
-    return render_template("index.html", user = name_auth)
+    
+    if (user == name_auth):
+        return render_template("index.html", user = name_auth)
+    else:
+        return redirect(url_for('login'))
 
 # login
 
@@ -56,7 +59,7 @@ def login():
                     print("autenticado", name_auth, pwd, users[count]['name'], users[count]['pwd'])
                     global authentication
                     authentication = True
-                    return render_template('index.html', user = name_auth)
+                    return redirect(url_for('index', user = name_auth))
                 else:
                     print("não autenticado", name_auth, pwd, users[count]['name'], users[count]['pwd'])    
             count += 1   
@@ -159,3 +162,6 @@ def delete_user_profile(username):
 @app.route("/labirinto")
 def labirinto():
     return render_template("labirinto.html")
+
+if __name__ == '__main__':
+    app.run(debug=True)
