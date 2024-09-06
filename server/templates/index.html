@@ -5,18 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Três Quadrados Centralizados</title>
     <style>
-
-        .titulo {
-            text-align: center;
-            color: #ffffff;
-        }
-
         body {
             background-color: #000000; /* Cor de fundo para a página */
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .titulo {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            letter-spacing: 2px;
         }
 
         .container {
-            margin-top: 15%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -27,11 +37,33 @@
             width: 150px;
             height: 150px;
             background-color: #ffffff; /* Cor dos quadrados */
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .quadrado:hover {
+            transform: scale(1.1);
+        }
+
+        p {
+            background-color: #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #ffffff;
+        }
+
+        strong {
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
-    <h1 class="titulo" >Games Blackboard</h1>
+    <h1 class="titulo">Games Blackboard</h1>
+    <p> {{ user }}</p>
     <div class="container">
         <div class="quadrado"></div>
         <div class="quadrado"></div>

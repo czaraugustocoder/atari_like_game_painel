@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 from markupsafe import escape
 
 app = Flask(__name__)
@@ -19,11 +19,59 @@ users = [
 
 print(users)
 
+authentication = False
+name_auth_true = True
+name_auth_false = False
+
+# painel do usuário
+
+@app.route("/painel")
+def index():
+
+    if (authentication == False):
+        return redirect(url_for('login'))
+
+    return render_template("index.html", user = name_auth)
+
+# login
+
+@app.route("/", methods=["GET", "POST"])
+def login():
+
+    if request.method == "POST":
+
+        global name_auth
+
+        name_auth = request.form['name']
+        print(name_auth)
+        pwd = request.form['password']
+        print(pwd)
+
+        count = 0
+        for i in users:
+            print(i['name'])
+            if ((i['name'] == name_auth)):
+                print(count)
+                if ((users[count]['name'] == name_auth) and (users[count]['pwd'] == pwd)):
+                    print("autenticado", name_auth, pwd, users[count]['name'], users[count]['pwd'])
+                    global authentication
+                    authentication = True
+                    return render_template('index.html', user = name_auth)
+                else:
+                    print("não autenticado", name_auth, pwd, users[count]['name'], users[count]['pwd'])    
+            count += 1   
+        count = 0
+
+        print("usuario não ncontrado")
+        return render_template("login.html", attempt = name_auth_true)
+
+    return render_template("login.html", attempt = name_auth_false)
+
 
 
 # inserção de um novo usuario
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/cadastrar", methods=["GET", "POST"])
 def register():
 
     if request.method == "POST":

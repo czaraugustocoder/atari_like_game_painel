@@ -36,7 +36,6 @@
         }
 
         input[type="text"],
-        input[type="email"],
         input[type="password"] {
             width: 100%;
             padding: 10px;
@@ -81,9 +80,12 @@
     <div class="container">
         <form action="" method="post">
             <input type="text" name="name" placeholder="Insira um nome" required>
-            <input type="email" name="email" placeholder="Insira um email" required>
             <input type="password" name="password" placeholder="***********" required>
             <input type="submit" value="login">
+        </form>
+        {% if attempt %}
+            <p>Usuário não encontrado</p>
+        {% endif %}
     </div>
 </body>
 </html>

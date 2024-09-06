@@ -3,43 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Três Quadrados Centralizados</title>
+    <title>Usuários - Games Blackboard</title>
     <style>
-
-        .titulo {
-            text-align: center;
+        body {
+            background-color: #000000; /* Cor de fundo */
+            font-family: Arial, sans-serif;
             color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        body {
-            background-color: #000000; /* Cor de fundo para a página */
+        .titulo {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            letter-spacing: 2px;
         }
 
         .container {
-            margin-top: 15%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px; /* Espaço entre os quadrados */
+            background-color: #1c1c1c;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+            width: 80%;
+            max-width: 500px;
+            text-align: left;
         }
 
-        .quadrado {
-            width: 150px;
-            height: 150px;
-            background-color: #ffffff; /* Cor dos quadrados */
+        h1 {
+            font-size: 1.8em;
+            border-bottom: 2px solid #ffffff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: #ffffff;
         }
 
         p {
-            background-color: #ffffff;
+            background-color: #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #ffffff;
+        }
+
+        strong {
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
-    <h1 class="titulo" >Games Blackboard</h1>
+    <h1 class="titulo">Games Blackboard</h1>
     <div class="container">
-        <h1>Usuarios</h1>
+        <h1>Usuários</h1>
         {% for user in users %}
-            <p><strong>Name:</strong> {{ user.name }}</p>
+            <p><strong>Nome:</strong> {{ user.name }}</p>
         {% endfor %}
     </div>
 </body>
