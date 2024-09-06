@@ -1,8 +1,10 @@
 from flask import Flask
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 from markupsafe import escape
 
 app = Flask(__name__)
+
+app.secret_key = "123456"
 
 users = [
     {
@@ -19,7 +21,6 @@ users = [
 
 print(users)
 
-authentication = False
 name_auth_true = True
 name_auth_false = False
 
@@ -27,14 +28,11 @@ name_auth_false = False
 
 @app.route("/painel/<user>")
 def index(user):
-
-    if (authentication == False):
-        return redirect(url_for('login'))
     
-    if (user == name_auth):
-        return render_template("index.html", user = name_auth)
-    else:
-        return redirect(url_for('login'))
+    if (user in session["user"]):
+        return render_template("index.html", user = session["user"])
+    
+    return redirect(url_for('login'))
 
 # login
 
@@ -42,8 +40,6 @@ def index(user):
 def login():
 
     if request.method == "POST":
-
-        global name_auth
 
         name_auth = request.form['name']
         print(name_auth)
@@ -57,9 +53,9 @@ def login():
                 print(count)
                 if ((users[count]['name'] == name_auth) and (users[count]['pwd'] == pwd)):
                     print("autenticado", name_auth, pwd, users[count]['name'], users[count]['pwd'])
-                    global authentication
-                    authentication = True
-                    return redirect(url_for('index', user = name_auth))
+                    session["user"] = name_auth
+                    print(session["user"])
+                    return redirect(url_for('index', user = session["user"]))
                 else:
                     print("não autenticado", name_auth, pwd, users[count]['name'], users[count]['pwd'])    
             count += 1   
