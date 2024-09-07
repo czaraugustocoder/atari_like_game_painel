@@ -34,8 +34,19 @@ class SheetConn:
 
         return user_credentials
     
+    def insertuser(self, data):
+        scope = ['https://spreadsheets.google.com/feeds']
+
+        credentials = ServiceAccountCredentials.from_json_keyfile_name(self.jsonkey, scope)
+
+        gc = gspread.authorize(credentials)
+
+        wks = gc.open_by_key(self.idsheet).worksheet(self.sheet)
+
+        wks.append_row(data)
+    
 user = SheetConn(r'/home/czaraugusto/python_files/games_blackboard/server/database-backend-game-project-9018e6c2f3f1.json', 
           '1QTTJU_mhSUFJ8rbnmej_xfX4cfJK0WXlk84HWjI4tyw',
-          'USUARIOS').takeuser('cesar')
+          'USUARIOS').insertuser(["Cesar","cesar@gmail.com","5487985"])
 
 print(user)
