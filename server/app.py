@@ -48,21 +48,19 @@ def login():
         pwd = request.form['password']
         print(pwd)
 
-        count = 0
-        for i in users:
-            print(i['name'])
-            if ((i['name'] == name_auth)):
-                print(count)
-                if ((users[count]['name'] == name_auth) and (users[count]['pwd'] == pwd)):
-                    print("autenticado", name_auth, pwd, users[count]['name'], users[count]['pwd'])
-                    session["user"] = name_auth
-                    print(session)
-                    print(session["user"])
-                    return redirect(url_for('index', user = session["user"]))
-                else:
-                    print("não autenticado", name_auth, pwd, users[count]['name'], users[count]['pwd'])    
-            count += 1   
-        count = 0
+        user_cred = SheetConn(r'/home/czaraugusto/python_files/games_blackboard/server/database-backend-game-project-9018e6c2f3f1.json', 
+        '1QTTJU_mhSUFJ8rbnmej_xfX4cfJK0WXlk84HWjI4tyw',
+        'USUARIOS').takeuser(name_auth)
+
+        if (len(user_cred) > 0):
+            if ((str(user_cred[0]) == name_auth) and (str(user_cred[1]) == pwd)):
+                print("autenticado")
+                session["user"] = name_auth
+                print(session)
+                print(session["user"])
+                return redirect(url_for('index', user = session["user"]))
+            else:
+                print("não autenticado")    
 
         print("usuario não ncontrado")
         return render_template("login.html", attempt = name_auth_true)
