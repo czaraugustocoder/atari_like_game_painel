@@ -78,17 +78,14 @@ def register():
         email = request.form['email']
         pwd = request.form['password']
 
-        for a in users:
-            if a['name'] == name:
-                    return '<p>Usuario já existe, escolha outro</p>'
+        user_info = [name, email, pwd]
 
-        users.append(
-            {
-            'name' : name,
-            'email' : email,
-            "pwd" : pwd
-            }
-        )
+        user_cred = SheetConn('USUARIOS').takeuser(name)
+
+        if (len(user_cred) > 0):
+            return '<p>Usuario já existe, escolha outro</p>'
+
+        SheetConn('USUARIOS').insertuser(user_info)
 
         return "você foi registrado com o nome: "+name
     
