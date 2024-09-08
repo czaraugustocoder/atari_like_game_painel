@@ -84,6 +84,10 @@
             <input type="email" name="email" placeholder="Insira um email" required>
             <input type="password" name="password" placeholder="***********" required>
             <input type="submit" value="login">
+        </form>
+        {% if attempt %}
+            <p>{{ msg }}</p>
+        {% endif %}
     </div>
 </body>
 </html>
