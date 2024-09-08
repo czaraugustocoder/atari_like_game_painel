@@ -4,9 +4,9 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 class SheetConn:
 
-    def __init__(self, jsonkey, idsheet, sheet):
-        self.jsonkey = jsonkey
-        self.idsheet = idsheet
+    def __init__(self, sheet):
+        self.jsonkey = r'/home/czaraugusto/python_files/games_blackboard/server/database-backend-game-project-9018e6c2f3f1.json'
+        self.idsheet = '1QTTJU_mhSUFJ8rbnmej_xfX4cfJK0WXlk84HWjI4tyw'
         self.sheet = sheet
         
     def takeuser(self, usuario):
@@ -45,8 +45,6 @@ class SheetConn:
 
         wks.append_row(data)
     
-user = SheetConn(r'/home/czaraugusto/python_files/games_blackboard/server/database-backend-game-project-9018e6c2f3f1.json', 
-          '1QTTJU_mhSUFJ8rbnmej_xfX4cfJK0WXlk84HWjI4tyw',
-          'USUARIOS').insertuser(["Cesar","cesar@gmail.com","5487985"])
+user = SheetConn('USUARIOS').insertuser(["Cesar","cesar@gmail.com","5487985"])
 
 print(user)
