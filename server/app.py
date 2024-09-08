@@ -48,9 +48,7 @@ def login():
         pwd = request.form['password']
         print(pwd)
 
-        user_cred = SheetConn(r'/home/czaraugusto/python_files/games_blackboard/server/database-backend-game-project-9018e6c2f3f1.json', 
-        '1QTTJU_mhSUFJ8rbnmej_xfX4cfJK0WXlk84HWjI4tyw',
-        'USUARIOS').takeuser(name_auth)
+        user_cred = SheetConn('USUARIOS').takeuser(name_auth)
 
         if (len(user_cred) > 0):
             if ((str(user_cred[0]) == name_auth) and (str(user_cred[1]) == pwd)):
