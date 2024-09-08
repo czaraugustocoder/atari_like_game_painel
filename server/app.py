@@ -83,13 +83,16 @@ def register():
         user_cred = SheetConn('USUARIOS').takeuser(name)
 
         if (len(user_cred) > 0):
-            return '<p>Usuario já existe, escolha outro</p>'
+            mensagem = "usuário já existe, escolha outro"
+            return render_template("register.html", attempt = name_auth_true, msg = mensagem)
 
         SheetConn('USUARIOS').insertuser(user_info)
 
-        return "você foi registrado com o nome: "+name
+        mensagem = "usuário cadastrado com sucesso, faça login"
+
+        return render_template("register.html", attempt = name_auth_true, msg = mensagem)
     
-    return render_template("register.html")
+    return render_template("register.html", attempt = name_auth_false)
 
 # consulta de todos os usuarios
 
