@@ -44,7 +44,3 @@ class SheetConn:
         wks = gc.open_by_key(self.idsheet).worksheet(self.sheet)
 
         wks.append_row(data)
-    
-user = SheetConn('USUARIOS').insertuser(["Cesar","cesar@gmail.com","5487985"])
-
-print(user)
