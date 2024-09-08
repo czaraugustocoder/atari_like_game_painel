@@ -74,6 +74,10 @@
             font-weight: bold;
         }
 
+        h2:hover {
+            background-color: #dddddd;
+        }
+
     </style>
 </head>
 <body>
@@ -88,6 +92,7 @@
         {% if attempt %}
             <p>{{ msg }}</p>
         {% endif %}
+        <h2><a href="{{ url_for('login') }}">login</a></h2>
     </div>
 </body>
 </html>
