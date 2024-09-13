@@ -36,18 +36,6 @@ def index(user):
     if (user not in session["user"]):
         return redirect(url_for('login'))
 
-
-@app.route("/labirinto/<user>")
-def labirinto(user):
-
-    if (user in session["user"]):
-        return render_template("labirinto.html", user = session["user"])
-    
-
-    if (user not in session["user"]):
-        return redirect(url_for('login'))
-
-
 # login
 
 @app.route("/", methods=["GET", "POST"])
@@ -77,7 +65,24 @@ def login():
 
     return render_template("login.html", attempt = name_auth_false)
 
+#labirinto
 
+@app.route("/labirinto")
+def labirinto():
+    return redirect(url_for('labirinto_user', user = session["user"]))
+
+
+#labirinto/user
+
+@app.route("/labirinto/<user>")
+def labirinto_user(user):
+
+    if (user in session["user"]):
+        return render_template("labirinto.html")
+    
+
+    if (user not in session["user"]):
+        return redirect(url_for('login'))
 
 # inserção de um novo usuario
 
