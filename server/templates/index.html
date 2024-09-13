@@ -59,6 +59,10 @@
             margin-top: 150px; /* Adiciona espaço para compensar o header fixo */
         }
 
+        a {
+            text-decoration: none; /* Remove o sublinhado dos links */
+        }
+
         .quadrado {
             width: 150px;
             height: 150px;
@@ -66,6 +70,9 @@
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
             transition: transform 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .quadrado:hover {
@@ -80,9 +87,10 @@
     </header>
 
     <div class="container">
-        <div class="quadrado"></div>
-        <div class="quadrado"></div>
-        <div class="quadrado"></div>
+        <!-- Transformando o quadrado em um link -->
+        <a href="{{ url_for('labirinto') }}">
+            <div class="quadrado"></div>
+        </a>
     </div>
 </body>
 </html>
