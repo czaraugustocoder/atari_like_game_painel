@@ -3,24 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Três Quadrados Centralizados</title>
+    <title>Games Blackboard - Login</title>
     <style>
         body {
             background-color: #000000; /* Cor de fundo para a página */
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: #111;
+            padding: 20px;
+            position: fixed; /* Fixa o header no topo da página */
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center; /* Centraliza o título */
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         .titulo {
-            text-align: center;
             color: #ffffff;
-            margin-top: 50px;
-            font-size: 2em;
+            font-size: 2.5em;
             letter-spacing: 2px;
+            margin: 0;
+            text-align: center;
         }
 
         .container {
-            margin-top: 10%;
+            margin-top: 150px; /* Espaço para o header fixo */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -33,6 +51,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+            width: 300px;
         }
 
         input[type="text"],
@@ -80,17 +99,24 @@
     </style>
 </head>
 <body>
-    <h1 class="titulo">Games Blackboard</h1>
+    <header>
+        <h1 class="titulo">Games Blackboard</h1> <!-- Título centralizado no header fixo -->
+    </header>
+
     <div class="container">
         <form action="" method="post">
             <input type="text" name="name" placeholder="Insira um nome" required>
             <input type="password" name="password" placeholder="***********" required>
-            <input type="submit" value="login">
+            <input type="submit" value="Login">
         </form>
+
+        <!-- Mensagem de erro de login -->
         {% if attempt %}
-            <p>Usuário não encontrado,faça o cadastro</p>
+            <p>Usuário não encontrado, faça o cadastro</p>
         {% endif %}
-        <h2><a href="{{ url_for('register') }}">cadastrar</a></h2>
+
+        <!-- Link para cadastro -->
+        <h2><a href="{{ url_for('register') }}">Cadastrar</a></h2>
     </div>
 </body>
 </html>

@@ -1,171 +1,220 @@
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Bomberman</title>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games Blackboard - Bomberman</title>
+    <style>
+        body {
+            background-color: #000000; /* Cor de fundo para a página */
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-        <style>
-            #tela {
-                border: 5px solid #CCC;
-                image-rendering: pixelated;
-                image-rendering: crisp-edges;
-                image-rendering: -moz-crisp-edges;
-                width: 400px;
-                height: 400px;
+        header {
+            width: 100%;
+            background-color: #111;
+            padding: 20px;
+            position: fixed; /* Fixa o header no topo da página */
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center; /* Centraliza o título */
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .titulo {
+            color: #ffffff;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            margin-top: 150px; /* Espaço para o header fixo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        #tela {
+            border: 5px solid #CCC;
+            background-color: white;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            image-rendering: -moz-crisp-edges;
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="titulo">Games Blackboard</h1> <!-- Título centralizado no header fixo -->
+    </header>
+
+    <div class="container">
+        <canvas id="tela" width="30" height="30"></canvas> <!-- Tela do jogo -->
+    </div>
+
+    <script>
+        const tela = document.getElementById("tela");
+        const context = tela.getContext("2d");
+
+        const game = {
+            jogadores: {
+                'jogador1': { x: 0, y: 0 }
+            },
+            frutas: {
+            'fruta': { x: 29, y: 29 }
             }
-        </style>
-    </head>
-    <body>
-        <canvas id="tela" width="30" height="30"></canvas>
+        }
 
-        <script>
-            const tela = document.getElementById("tela");
-            const context = tela.getContext("2d");
+        document.addEventListener('keydown', handleKeydown);
 
-            const game = {
-                jogadores: {
-                    'jogador1': { x: 0, y: 0 }
-                },
-                frutas: {
-                'fruta': { x: 29, y: 29 }
-                }
-            }
+        function handleKeydown(event) {
+            const keyPressed = event.key
+            const gamer = game.jogadores['jogador1']
 
-            document.addEventListener('keydown', handleKeydown);
-
-            function handleKeydown(event) {
-                const keyPressed = event.key
-                const gamer = game.jogadores['jogador1']
-
-                if (keyPressed === "ArrowUp" && gamer.y > 0) {
-                    console.log("up")
-                    let y = gamer.y - 1
-                    let coord_game = `${gamer.x},${y}`;
-                    console.log(coord_game)
-                    if (coords.includes(coord_game) === false) {
-                        console.log(coords.includes(coord_game));
-                        gamer.y = gamer.y - 1
-                    }
-
-                    renderTela(game)
-
+            if (keyPressed === "ArrowUp" && gamer.y > 0) {
+                console.log("up")
+                let y = gamer.y - 1
+                let coord_game = `${gamer.x},${y}`;
+                console.log(coord_game)
+                if (coords.includes(coord_game) === false) {
+                    console.log(coords.includes(coord_game));
+                    gamer.y = gamer.y - 1
                 }
 
-                if (keyPressed === "ArrowRight" && gamer.x < 29) {
-                    console.log("right")
-                    let x = gamer.x + 1
-                    let coord_game = `${x},${gamer.y}`;
-                    console.log(coord_game)
-                    if (coords.includes(coord_game) === false) {
-                        console.log(coords.includes(coord_game));
-                        gamer.x = gamer.x + 1
-                    }
-
-                    renderTela(game)
-                }
-
-                if (keyPressed === "ArrowLeft" && gamer.x > 0) {
-                    console.log("left")
-                    let x = gamer.x - 1
-                    let coord_game = `${x},${gamer.y}`;
-                    console.log(coord_game)
-                    if (coords.includes(coord_game) === false) {
-                        console.log(coords.includes(coord_game));
-                        gamer.x = gamer.x - 1
-                    }
-
-                    renderTela(game)
-                }
-
-                if (keyPressed === "ArrowDown" && gamer.y < 29) {
-                    console.log("down")
-                    let y = gamer.y + 1
-                    let coord_game = `${gamer.x},${y}`;
-                    console.log(coord_game)
-                    if (coords.includes(coord_game) === false) {
-                        console.log(coords.includes(coord_game));
-                        gamer.y = gamer.y + 1
-                    }
-
-                    renderTela(game)
-                }
+                renderTela(game)
 
             }
 
-            let coords = []
-
-            renderTela(game)
-
-            function renderTela(game) {
-                coords = []
-                context.fillStyle = "white"
-                context.clearRect(0, 0, 30, 30)
-
-                const lab = [
-                [0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0],
-                [0,0,0,1,1,1,0,1,1,0,0,0,1,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0],
-                [0,0,0,1,0,1,0,1,0,0,0,0,1,0,0,1,1,1,0,0,1,0,0,0,1,1,1,1,1,0],
-                [0,1,1,1,0,1,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                [0,0,0,1,0,1,0,0,0,1,1,1,1,0,0,1,0,0,0,1,1,1,1,0,1,1,1,0,0,0],
-                [0,0,0,1,0,1,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0],
-                [0,1,1,1,0,0,0,1,0,0,0,0,1,0,0,1,0,0,1,1,0,0,1,0,0,0,1,1,1,0],
-                [0,0,0,1,0,1,1,1,0,1,0,0,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
-                [0,0,0,0,0,1,0,1,0,0,1,0,1,0,0,1,0,1,1,0,0,0,1,0,1,1,1,1,1,1],
-                [0,0,0,1,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0],
-                [0,0,0,0,0,1,0,0,0,0,1,0,1,1,1,1,1,1,0,0,0,0,1,0,0,0,0,1,1,0],
-                [0,0,0,1,0,1,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,1,1,0,1,0,0],
-                [0,0,0,1,0,1,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0,0],
-                [0,1,1,1,0,1,0,1,0,0,0,0,1,0,0,1,1,1,1,1,1,0,1,0,0,0,0,1,0,0],
-                [0,0,0,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0],
-                [0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,1,1,0,0,0,0,1,0,0,0,0,1,0,0],
-                [1,1,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,0,1,0,0,0,0,1,0,0],
-                [0,0,0,1,1,1,1,1,1,1,0,1,0,0,0,1,0,1,0,0,1,1,1,0,0,0,0,1,0,0],
-                [0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,1,1,1,0,0,0,0,1,1,1,0,0],
-                [0,0,0,1,0,0,0,0,0,0,1,1,0,1,0,0,0,1,0,0,1,0,0,1,1,1,0,0,0,0],
-                [0,0,0,0,0,1,0,0,0,0,1,0,0,1,1,1,1,1,0,0,1,0,0,0,0,1,0,1,0,0],
-                [0,0,0,1,0,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0,0,1,0,1,0,0],
-                [0,0,0,1,1,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0],
-                [0,1,1,1,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,1,1,1,1,1,1,1,1,1,0,0],
-                [0,0,0,1,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0],
-                [0,0,0,1,1,1,1,1,0,0,1,0,0,0,0,1,1,1,0,1,0,0,1,1,1,1,1,1,1,0],
-                [1,1,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0],
-                [0,0,0,1,0,1,1,1,1,1,1,1,0,0,0,1,0,1,1,1,0,0,1,1,1,1,1,0,0,0],
-                [0,0,0,1,0,1,0,1,0,0,0,0,1,1,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0],
-                [0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0]
-                ]
-
-                let cont_linha = 0;
-                let cont_ponto = 0;
-
-                for (linha in lab) {
-                    pontos = lab[linha]
-                    cont_ponto = 0
-                    for (ponto in pontos) {
-                        if (lab[linha][ponto] == 1) {
-                            context.fillStyle = "black";
-                            const coord = `${cont_ponto},${cont_linha}`;
-                            coords.push(coord);
-                            context.fillRect(cont_ponto, cont_linha, 1, 1);
-                        }
-                        cont_ponto += 1
-                    }
-                    cont_linha += 1
+            if (keyPressed === "ArrowRight" && gamer.x < 29) {
+                console.log("right")
+                let x = gamer.x + 1
+                let coord_game = `${x},${gamer.y}`;
+                console.log(coord_game)
+                if (coords.includes(coord_game) === false) {
+                    console.log(coords.includes(coord_game));
+                    gamer.x = gamer.x + 1
                 }
 
-                console.log(coords)
+                renderTela(game)
+            }
 
-                for (jogadorId in game.jogadores) {
-                    const jogador = game.jogadores[jogadorId];
-                    context.fillStyle = "blue";
-                    context.fillRect(jogador.x, jogador.y, 1, 1);
+            if (keyPressed === "ArrowLeft" && gamer.x > 0) {
+                console.log("left")
+                let x = gamer.x - 1
+                let coord_game = `${x},${gamer.y}`;
+                console.log(coord_game)
+                if (coords.includes(coord_game) === false) {
+                    console.log(coords.includes(coord_game));
+                    gamer.x = gamer.x - 1
                 }
 
-                for (frutaId in game.frutas) {
-                    const fruta = game.frutas[frutaId];
-                    context.fillStyle = "green";
-                    context.fillRect(fruta.x, fruta.y, 1, 1);
+                renderTela(game)
+            }
+
+            if (keyPressed === "ArrowDown" && gamer.y < 29) {
+                console.log("down")
+                let y = gamer.y + 1
+                let coord_game = `${gamer.x},${y}`;
+                console.log(coord_game)
+                if (coords.includes(coord_game) === false) {
+                    console.log(coords.includes(coord_game));
+                    gamer.y = gamer.y + 1
                 }
+
+                renderTela(game)
+            }
 
         }
-        </script>
-    </body>
+
+        let coords = []
+
+        renderTela(game)
+
+        function renderTela(game) {
+            coords = []
+            context.fillStyle = "white"
+            context.clearRect(0, 0, 30, 30)
+
+            const lab = [
+            [0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0],
+            [0,0,0,1,1,1,0,1,1,0,0,0,1,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0],
+            [0,0,0,1,0,1,0,1,0,0,0,0,1,0,0,1,1,1,0,0,1,0,0,0,1,1,1,1,1,0],
+            [0,1,1,1,0,1,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,1,0,1,0,0,0,1,1,1,1,0,0,1,0,0,0,1,1,1,1,0,1,1,1,0,0,0],
+            [0,0,0,1,0,1,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0],
+            [0,1,1,1,0,0,0,1,0,0,0,0,1,0,0,1,0,0,1,1,0,0,1,0,0,0,1,1,1,0],
+            [0,0,0,1,0,1,1,1,0,1,0,0,1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+            [0,0,0,0,0,1,0,1,0,0,1,0,1,0,0,1,0,1,1,0,0,0,1,0,1,1,1,1,1,1],
+            [0,0,0,1,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0],
+            [0,0,0,0,0,1,0,0,0,0,1,0,1,1,1,1,1,1,0,0,0,0,1,0,0,0,0,1,1,0],
+            [0,0,0,1,0,1,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,1,1,0,1,0,0],
+            [0,0,0,1,0,1,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0,0],
+            [0,1,1,1,0,1,0,1,0,0,0,0,1,0,0,1,1,1,1,1,1,0,1,0,0,0,0,1,0,0],
+            [0,0,0,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0],
+            [0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,1,1,0,0,0,0,1,0,0,0,0,1,0,0],
+            [1,1,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,0,1,0,0,0,0,1,0,0],
+            [0,0,0,1,1,1,1,1,1,1,0,1,0,0,0,1,0,1,0,0,1,1,1,0,0,0,0,1,0,0],
+            [0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,1,1,1,0,0,0,0,1,1,1,0,0],
+            [0,0,0,1,0,0,0,0,0,0,1,1,0,1,0,0,0,1,0,0,1,0,0,1,1,1,0,0,0,0],
+            [0,0,0,0,0,1,0,0,0,0,1,0,0,1,1,1,1,1,0,0,1,0,0,0,0,1,0,1,0,0],
+            [0,0,0,1,0,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0,0,1,0,1,0,0],
+            [0,0,0,1,1,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0],
+            [0,1,1,1,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,1,1,1,1,1,1,1,1,1,0,0],
+            [0,0,0,1,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0],
+            [0,0,0,1,1,1,1,1,0,0,1,0,0,0,0,1,1,1,0,1,0,0,1,1,1,1,1,1,1,0],
+            [1,1,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0],
+            [0,0,0,1,0,1,1,1,1,1,1,1,0,0,0,1,0,1,1,1,0,0,1,1,1,1,1,0,0,0],
+            [0,0,0,1,0,1,0,1,0,0,0,0,1,1,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0],
+            [0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0]
+            ]
+
+            let cont_linha = 0;
+            let cont_ponto = 0;
+
+            for (linha in lab) {
+                pontos = lab[linha]
+                cont_ponto = 0
+                for (ponto in pontos) {
+                    if (lab[linha][ponto] == 1) {
+                        context.fillStyle = "black";
+                        const coord = `${cont_ponto},${cont_linha}`;
+                        coords.push(coord);
+                        context.fillRect(cont_ponto, cont_linha, 1, 1);
+                    }
+                    cont_ponto += 1
+                }
+                cont_linha += 1
+            }
+
+            console.log(coords)
+
+            for (jogadorId in game.jogadores) {
+                const jogador = game.jogadores[jogadorId];
+                context.fillStyle = "blue";
+                context.fillRect(jogador.x, jogador.y, 1, 1);
+            }
+
+            for (frutaId in game.frutas) {
+                const fruta = game.frutas[frutaId];
+                context.fillStyle = "green";
+                context.fillRect(fruta.x, fruta.y, 1, 1);
+            }
+
+    }
+    </script>
+</body>
 </html>

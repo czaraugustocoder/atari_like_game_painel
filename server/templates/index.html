@@ -18,12 +18,37 @@
             height: 100vh;
         }
 
+        header {
+            width: 100%;
+            background-color: #111;
+            padding: 20px;
+            position: fixed; /* Fixa o header no topo da página */
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between; /* Espaço entre os elementos */
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
         .titulo {
             color: #ffffff;
-            text-align: center;
-            margin-bottom: 20px;
             font-size: 2.5em;
             letter-spacing: 2px;
+            margin: 0;
+            text-align: center;
+            flex-grow: 1; /* Faz o título centralizar no header */
+        }
+
+        p {
+            background-color: #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            margin: 0;
+            margin-left: 2px; /* Garante que o texto tenha uma distância mínima de 2px da margem esquerda */
+            font-size: 1.2em;
+            color: #ffffff;
         }
 
         .container {
@@ -31,6 +56,7 @@
             justify-content: center;
             align-items: center;
             gap: 30px; /* Espaço entre os quadrados */
+            margin-top: 150px; /* Adiciona espaço para compensar o header fixo */
         }
 
         .quadrado {
@@ -45,25 +71,14 @@
         .quadrado:hover {
             transform: scale(1.1);
         }
-
-        p {
-            background-color: #333;
-            padding: 10px 20px;
-            border-radius: 5px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            margin-bottom: 20px;
-            font-size: 1.2em;
-            color: #ffffff;
-        }
-
-        strong {
-            color: #ffffff;
-        }
     </style>
 </head>
 <body>
-    <h1 class="titulo">Games Blackboard</h1>
-    <p> {{ user }}</p>
+    <header>
+        <h1 class="titulo">Games Blackboard</h1>
+        <p>{{ user }}</p>
+    </header>
+
     <div class="container">
         <div class="quadrado"></div>
         <div class="quadrado"></div>
