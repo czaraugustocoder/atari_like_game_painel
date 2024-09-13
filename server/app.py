@@ -36,6 +36,18 @@ def index(user):
     if (user not in session["user"]):
         return redirect(url_for('login'))
 
+
+@app.route("/labirinto/<user>")
+def labirinto(user):
+
+    if (user in session["user"]):
+        return render_template("labirinto.html", user = session["user"])
+    
+
+    if (user not in session["user"]):
+        return redirect(url_for('login'))
+
+
 # login
 
 @app.route("/", methods=["GET", "POST"])
@@ -151,12 +163,6 @@ def delete_user_profile(username):
         
     return '<p>Usuario não encontrado</p>'
 
-
-
-
-@app.route("/labirinto")
-def labirinto():
-    return render_template("labirinto.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
