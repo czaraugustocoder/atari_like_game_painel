@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for, session, jsonify
+import json
 from markupsafe import escape
 from sheetconn import SheetConn
 
@@ -88,7 +89,8 @@ def labirinto_user(user):
 @app.route('/game/win', methods=['POST'])
 def game_win():
     data = request.json
-    print(f"{data}")
+    print(f"{data['tempo']}")
+    print(f"{type(data)}")
     return data
 
 # inserção de um novo usuario
