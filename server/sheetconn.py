@@ -44,3 +44,23 @@ class SheetConn:
         wks = gc.open_by_key(self.idsheet).worksheet(self.sheet)
 
         wks.append_row(data)
+
+    def timeuser(self, usuario, tempo):
+        scope = ['https://spreadsheets.google.com/feeds']
+
+        credentials = ServiceAccountCredentials.from_json_keyfile_name(self.jsonkey, scope)
+
+        gc = gspread.authorize(credentials)
+
+        wks = gc.open_by_key(self.idsheet).worksheet(self.sheet)
+
+        celula = wks.find(usuario)
+        print(celula)
+        if celula:
+            name_usuario = usuario
+            linha = celula.row
+            print(f'A chave {name_usuario} está na linha: {linha}')
+            coluna_linha = f'B{linha}'
+            wks.update_acell(coluna_linha, tempo)
+
+        return celula
