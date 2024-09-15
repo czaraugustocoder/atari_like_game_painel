@@ -29,6 +29,12 @@
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
         }
 
+        #stopwatch {
+            font-size: 2em;
+            color: #ffffff; /* Cor branca */
+            margin-top: 120px; /* Espaçamento para o header fixo */
+        }
+
         .titulo {
             color: #ffffff;
             font-size: 2.5em;
@@ -55,6 +61,7 @@
             width: 400px;
             height: 400px;
         }
+
     </style>
 </head>
 <body>
@@ -62,11 +69,48 @@
         <h1 class="titulo">Games Blackboard</h1> <!-- Título centralizado no header fixo -->
     </header>
 
+    <div id="stopwatch">00:00:00</div>
+
     <div class="container">
         <canvas id="tela" width="30" height="30"></canvas> <!-- Tela do jogo -->
     </div>
 
     <script>
+
+        let stopwatchActive = true; // O cronômetro está ativo por default (true)
+        let display = document.getElementById("stopwatch");
+        let elapsedTime = 0; // Tempo total em segundos
+        let time = "0";
+
+        function startStopwatch() {
+            let interval = setInterval(function () {
+                // Verifica se o cronômetro ainda está ativo
+                if (stopwatchActive) {
+                    elapsedTime++; // Incrementa o tempo em 1 segundo
+
+                    let hours = Math.floor(elapsedTime / 3600);
+                    let minutes = Math.floor((elapsedTime % 3600) / 60);
+                    let seconds = elapsedTime % 60;
+
+                    // Adiciona um zero à esquerda se o número for menor que 10
+                    hours = hours < 10 ? "0" + hours : hours;
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    // Exibe o tempo passado no formato HH:MM:SS
+                    display.innerHTML = hours + ":" + minutes + ":" + seconds;
+                    time = `${hours}:${minutes}:${seconds}`;
+                } else {
+                    // Se o cronômetro estiver pausado, para o intervalo e exibe o tempo exato
+                    clearInterval(interval);
+                    console.log("Cronômetro pausado em: " + display.innerHTML);
+                }
+            }, 1000); // Atualiza a cada segundo (1000 milissegundos)
+        }
+
+        // Inicia o cronômetro
+        startStopwatch();
+
         const tela = document.getElementById("tela");
         const context = tela.getContext("2d");
 
@@ -84,59 +128,72 @@
         function handleKeydown(event) {
             const keyPressed = event.key
             const gamer = game.jogadores['jogador1']
+            const fruta = game.frutas['fruta']
 
-            if (keyPressed === "ArrowUp" && gamer.y > 0) {
-                console.log("up")
-                let y = gamer.y - 1
-                let coord_game = `${gamer.x},${y}`;
-                console.log(coord_game)
-                if (coords.includes(coord_game) === false) {
-                    console.log(coords.includes(coord_game));
-                    gamer.y = gamer.y - 1
+            let position_gamer = `${gamer.x},${gamer.y}`;
+            let position_fruit = `${fruta.x},${fruta.y}`;
+
+            if (position_gamer === position_fruit){
+
+                stopwatchActive = false;
+                alert(`você ganhou, seu tempo: ${time}`);
+
+            } else {
+
+                if (keyPressed === "ArrowUp" && gamer.y > 0) {
+                    console.log("up")
+                    let y = gamer.y - 1
+                    let coord_game = `${gamer.x},${y}`;
+                    console.log(coord_game)
+                    if (coords.includes(coord_game) === false) {
+                        console.log(coords.includes(coord_game));
+                        gamer.y = gamer.y - 1
+                    }
+
+                    renderTela(game)
+
                 }
 
-                renderTela(game)
+                if (keyPressed === "ArrowRight" && gamer.x < 29) {
+                    console.log("right")
+                    let x = gamer.x + 1
+                    let coord_game = `${x},${gamer.y}`;
+                    console.log(coord_game)
+                    if (coords.includes(coord_game) === false) {
+                        console.log(coords.includes(coord_game));
+                        gamer.x = gamer.x + 1
+                    }
 
-            }
-
-            if (keyPressed === "ArrowRight" && gamer.x < 29) {
-                console.log("right")
-                let x = gamer.x + 1
-                let coord_game = `${x},${gamer.y}`;
-                console.log(coord_game)
-                if (coords.includes(coord_game) === false) {
-                    console.log(coords.includes(coord_game));
-                    gamer.x = gamer.x + 1
+                    renderTela(game)
                 }
 
-                renderTela(game)
-            }
+                if (keyPressed === "ArrowLeft" && gamer.x > 0) {
+                    console.log("left")
+                    let x = gamer.x - 1
+                    let coord_game = `${x},${gamer.y}`;
+                    console.log(coord_game)
+                    if (coords.includes(coord_game) === false) {
+                        console.log(coords.includes(coord_game));
+                        gamer.x = gamer.x - 1
+                    }
 
-            if (keyPressed === "ArrowLeft" && gamer.x > 0) {
-                console.log("left")
-                let x = gamer.x - 1
-                let coord_game = `${x},${gamer.y}`;
-                console.log(coord_game)
-                if (coords.includes(coord_game) === false) {
-                    console.log(coords.includes(coord_game));
-                    gamer.x = gamer.x - 1
+                    renderTela(game)
                 }
 
-                renderTela(game)
-            }
+                if (keyPressed === "ArrowDown" && gamer.y < 29) {
+                    console.log("down")
+                    let y = gamer.y + 1
+                    let coord_game = `${gamer.x},${y}`;
+                    console.log(coord_game)
+                    if (coords.includes(coord_game) === false) {
+                        console.log(coords.includes(coord_game));
+                        gamer.y = gamer.y + 1
+                    }
 
-            if (keyPressed === "ArrowDown" && gamer.y < 29) {
-                console.log("down")
-                let y = gamer.y + 1
-                let coord_game = `${gamer.x},${y}`;
-                console.log(coord_game)
-                if (coords.includes(coord_game) === false) {
-                    console.log(coords.includes(coord_game));
-                    gamer.y = gamer.y + 1
+                    renderTela(game)
                 }
 
-                renderTela(game)
-            }
+                    }
 
         }
 
