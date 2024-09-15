@@ -91,6 +91,7 @@ def game_win():
     data = request.json
     print(f"{data['tempo']}")
     print(f"{type(data)}")
+    SheetConn('RANKING_DATA').timeuser(str(session["user"]), f"{data['tempo']}")
     return data
 
 # inserção de um novo usuario
