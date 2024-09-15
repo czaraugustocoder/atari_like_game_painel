@@ -44,7 +44,7 @@
         }
 
         .container {
-            margin-top: 150px; /* Espaço para o header fixo */
+            margin-top: 30px; /* Espaço para o header fixo */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -130,76 +130,96 @@
             const gamer = game.jogadores['jogador1']
             const fruta = game.frutas['fruta']
 
-            let position_gamer = `${gamer.x},${gamer.y}`;
-            let position_fruit = `${fruta.x},${fruta.y}`;
 
-            if (position_gamer === position_fruit){
-
-                stopwatchActive = false;
-                alert(`você ganhou, seu tempo: ${time}`);
-
-            } else {
-
-                if (keyPressed === "ArrowUp" && gamer.y > 0) {
-                    console.log("up")
-                    let y = gamer.y - 1
-                    let coord_game = `${gamer.x},${y}`;
-                    console.log(coord_game)
-                    if (coords.includes(coord_game) === false) {
-                        console.log(coords.includes(coord_game));
-                        gamer.y = gamer.y - 1
-                    }
-
-                    renderTela(game)
-
+            if (keyPressed === "ArrowUp" && gamer.y > 0) {
+                console.log("up")
+                let y = gamer.y - 1
+                let coord_game = `${gamer.x},${y}`;
+                console.log(coord_game)
+                if (coords.includes(coord_game) === false) {
+                    console.log(coords.includes(coord_game));
+                    gamer.y = gamer.y - 1
                 }
+                timerStop(game)
+                renderTela(game)
 
-                if (keyPressed === "ArrowRight" && gamer.x < 29) {
-                    console.log("right")
-                    let x = gamer.x + 1
-                    let coord_game = `${x},${gamer.y}`;
-                    console.log(coord_game)
-                    if (coords.includes(coord_game) === false) {
-                        console.log(coords.includes(coord_game));
-                        gamer.x = gamer.x + 1
-                    }
+            }
 
-                    renderTela(game)
+            if (keyPressed === "ArrowRight" && gamer.x < 29) {
+                console.log("right")
+                let x = gamer.x + 1
+                let coord_game = `${x},${gamer.y}`;
+                console.log(coord_game)
+                if (coords.includes(coord_game) === false) {
+                    console.log(coords.includes(coord_game));
+                    gamer.x = gamer.x + 1
                 }
+                timerStop(game)
+                renderTela(game)
+            }
 
-                if (keyPressed === "ArrowLeft" && gamer.x > 0) {
-                    console.log("left")
-                    let x = gamer.x - 1
-                    let coord_game = `${x},${gamer.y}`;
-                    console.log(coord_game)
-                    if (coords.includes(coord_game) === false) {
-                        console.log(coords.includes(coord_game));
-                        gamer.x = gamer.x - 1
-                    }
-
-                    renderTela(game)
+            if (keyPressed === "ArrowLeft" && gamer.x > 0) {
+                console.log("left")
+                let x = gamer.x - 1
+                let coord_game = `${x},${gamer.y}`;
+                console.log(coord_game)
+                if (coords.includes(coord_game) === false) {
+                    console.log(coords.includes(coord_game));
+                    gamer.x = gamer.x - 1
                 }
+                timerStop(game)
+                renderTela(game)
+            }
 
-                if (keyPressed === "ArrowDown" && gamer.y < 29) {
-                    console.log("down")
-                    let y = gamer.y + 1
-                    let coord_game = `${gamer.x},${y}`;
-                    console.log(coord_game)
-                    if (coords.includes(coord_game) === false) {
-                        console.log(coords.includes(coord_game));
-                        gamer.y = gamer.y + 1
-                    }
-
-                    renderTela(game)
+            if (keyPressed === "ArrowDown" && gamer.y < 29) {
+                console.log("down")
+                let y = gamer.y + 1
+                let coord_game = `${gamer.x},${y}`;
+                console.log(coord_game)
+                if (coords.includes(coord_game) === false) {
+                    console.log(coords.includes(coord_game));
+                    gamer.y = gamer.y + 1
                 }
-
-                    }
+                timerStop(game)
+                renderTela(game)
+            }
 
         }
 
         let coords = []
 
         renderTela(game)
+
+        function timerStop(game) {
+
+            let position_gamer = `${game.jogadores['jogador1'].x},${game.jogadores['jogador1'].y}`;
+            let position_fruit = `${game.frutas['fruta'].x},${game.frutas['fruta'].y}`;
+
+            console.log(position_gamer)
+
+            if (position_gamer === position_fruit){
+
+                stopwatchActive = false;
+                alert(`você ganhou, seu tempo: ${time}`);
+
+                fetch('/game/win', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    tempo: time // Envia o tempo como parte do corpo da requisição
+                }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            }
+        }
 
         function renderTela(game) {
             coords = []
