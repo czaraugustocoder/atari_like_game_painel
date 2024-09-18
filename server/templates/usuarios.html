@@ -6,8 +6,8 @@
     <title>Usuários - Games Blackboard</title>
     <style>
         body {
-            background-color: #000000; /* Cor de fundo */
-            font-family: Arial, sans-serif;
+            background-color: #000000; /* Cor de fundo para a página */
+            font-family: 'Arial', sans-serif;
             color: #ffffff;
             margin: 0;
             padding: 0;
@@ -18,12 +18,37 @@
             height: 100vh;
         }
 
+        header {
+            width: 100%;
+            background-color: #111;
+            padding: 20px;
+            position: fixed; /* Fixa o header no topo da página */
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between; /* Espaço entre os elementos */
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
         .titulo {
             color: #ffffff;
-            text-align: center;
-            margin-bottom: 30px;
             font-size: 2.5em;
             letter-spacing: 2px;
+            margin: 0;
+            text-align: center;
+            flex-grow: 1; /* Faz o título centralizar no header */
+        }
+
+        p {
+            background-color: #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            margin: 0;
+            margin-left: 2px;
+            font-size: 1.2em;
+            color: #ffffff;
         }
 
         .container {
@@ -32,8 +57,9 @@
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
             width: 80%;
-            max-width: 500px;
+            max-width: 600px;
             text-align: left;
+            margin-top: 150px; /* Compensação do header fixo */
         }
 
         h1 {
@@ -44,28 +70,65 @@
             color: #ffffff;
         }
 
-        p {
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
             background-color: #333;
-            padding: 10px 20px;
-            border-radius: 5px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            margin-bottom: 10px;
-            font-size: 1.2em;
+            padding: 12px 20px;
+            border: 1px solid #ffffff;
+            text-align: left;
             color: #ffffff;
+        }
+
+        th {
+            background-color: #444;
+            font-size: 1.2em;
+        }
+
+        td {
+            font-size: 1.1em;
         }
 
         strong {
             color: #ffffff;
         }
+
+        .quadrado-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
     </style>
 </head>
 <body>
-    <h1 class="titulo">Games Blackboard</h1>
+    <header>
+        <h1 class="titulo">Games Blackboard</h1>
+    </header>
+
     <div class="container">
-        <h1>Usuários</h1>
-        {% for user in users %}
-            <p><strong>Nome:</strong> {{ user.name }}</p>
-        {% endfor %}
+        <h1>Ranking</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Usuário</th>
+                    <th>Tempo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for number in range(qtd) %}
+                <tr>
+                    <td>{{ users['USUARIOS'][number] }}</td>
+                    <td>{{ users['TEMPO'][number] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
