@@ -1,5 +1,6 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import pandas as pd
 
 
 class SheetConn:
@@ -64,3 +65,31 @@ class SheetConn:
             wks.update_acell(coluna_linha, tempo)
 
         return celula
+    
+    def timeusers(self):
+        scope = ['https://spreadsheets.google.com/feeds']
+
+        credentials = ServiceAccountCredentials.from_json_keyfile_name(self.jsonkey, scope)
+
+        gc = gspread.authorize(credentials)
+
+        wks = gc.open_by_key(self.idsheet).worksheet(self.sheet)
+
+        dados = wks.get_all_values()
+
+        colunas = dados[0]
+
+        linhas = dados[1:]
+
+        users = pd.DataFrame(linhas, columns=colunas)
+
+        users = users.loc[users['TEMPO'] != ""]
+
+        users = users.sort_values(by=['TEMPO'],ascending=False)
+
+        usuarios = users['USUARIO'].tolist()
+        tempo = users['TEMPO'].tolist()
+
+        users_dic = {"USUARIOS":usuarios, "TEMPO": tempo}
+
+        return users_dic
