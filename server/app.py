@@ -125,7 +125,12 @@ def register():
 
 @app.route("/usuarios")
 def usuarios():
-    return render_template("usuarios.html", users=users)
+
+    usuarios = SheetConn('RANKING_DATA').timeusers()
+    qtd_usuarios = len(usuarios['USUARIOS'])
+    print(usuarios)
+
+    return render_template("usuarios.html", qtd=qtd_usuarios, users=usuarios)
 
 # consulta de apenas 1 usuarios
 
