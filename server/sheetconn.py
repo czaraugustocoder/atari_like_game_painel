@@ -85,7 +85,7 @@ class SheetConn:
 
         users = users.loc[users['TEMPO'] != ""]
 
-        users = users.sort_values(by=['TEMPO'],ascending=False)
+        users = users.sort_values(by=['TEMPO'],ascending=True)
 
         usuarios = users['USUARIO'].tolist()
         tempo = users['TEMPO'].tolist()
