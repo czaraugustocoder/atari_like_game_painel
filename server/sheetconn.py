@@ -1,12 +1,17 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pandas as pd
+import os
+
+current_working_directory = os.getcwd()
+
+json_key_path = os.path.join(current_working_directory, "database-backend-game-project-9018e6c2f3f1.json")
 
 
 class SheetConn:
 
     def __init__(self, sheet):
-        self.jsonkey = r'/home/czaraugusto/python_files/games_blackboard/server/database-backend-game-project-9018e6c2f3f1.json'
+        self.jsonkey = json_key_path
         self.idsheet = '1QTTJU_mhSUFJ8rbnmej_xfX4cfJK0WXlk84HWjI4tyw'
         self.sheet = sheet
         
